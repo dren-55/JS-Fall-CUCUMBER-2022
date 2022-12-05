@@ -62,5 +62,7 @@ When(/^I verify login (.*) is enabled$/, async function (field) {
             break;
     }
     expect(isFieldEnabled, `Login ${field} is NOT enabled`).to.be.true;
+
+    await browser.getUrl()
     
 });
