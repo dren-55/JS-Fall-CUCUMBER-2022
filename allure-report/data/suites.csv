@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"failed","Sun Dec 18 18:04:57 EST 2022","Sun Dec 18 18:05:28 EST 2022","30847","","Search","","Search","Verify sort-function work as expected","Verify sort-function work as expected",""
+"passed","Sun Dec 18 17:56:45 EST 2022","Sun Dec 18 17:56:54 EST 2022","8759","","Messenger","","Messenger","Verify link (Find your account and log in.) is displayed","Verify link (Find your account and log in.) is displayed",""
+"failed","Sun Dec 18 18:04:55 EST 2022","Sun Dec 18 18:05:30 EST 2022","35178","","Search","","Search","Verify sort-function work as expected","Verify sort-function work as expected",""
+"passed","Sun Dec 18 17:56:43 EST 2022","Sun Dec 18 17:56:57 EST 2022","13745","","Messenger","","Messenger","Verify link (Find your account and log in.) is displayed","Verify link (Find your account and log in.) is displayed",""
+"broken","Sun Dec 18 18:52:25 EST 2022","Sun Dec 18 18:53:48 EST 2022","83187","","Destination dates verification on hotels website","","Destination dates verification on hotels website","Verify destination and check-in/ and check-out dates are as user selected","Verify destination and check-in/ and check-out dates are as user selected",""
