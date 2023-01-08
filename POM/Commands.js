@@ -25,7 +25,7 @@ class Commands {
          */
         async findWebElement(locator) {
             await $(locator).waitForDisplayed({
-                timeout: 60000,
+                timeout: 30000,
                 timeoutMsg: 'WebElement is not displayed'
             })
             return await $(locator);
@@ -40,7 +40,7 @@ class Commands {
                 const totalElements = await $$(locator);
                 return totalElements.length >=1
             },{
-                timeout: 60000,
+                timeout: 30000,
                 timeoutMsg: 'No more than one element'
             });
             return await $$(locator);
@@ -80,7 +80,7 @@ class Commands {
                 do above flow for 30-seconds
             */
            await $(locator).waitForClickable({
-            timeout: 30000,
+            timeout: 50000,
             timeoutMsg: 'Element is not clickable'
            });
             await $(locator).click();
@@ -100,7 +100,7 @@ class Commands {
                 do above flow for 30-seconds
             */
            await $(locator).waitForEnabled({
-            timeout:120000,
+            timeout:60000,
             timeoutMsg: 'Element is not enabled'
            });
             return await $(locator).isEnabled();
@@ -120,7 +120,7 @@ class Commands {
                 do above flow for 30-seconds
             */
            await $(locator).waitForDisplayed({
-            timeout:120000,
+            timeout:60000,
             timeoutMsg: 'Element is not displayed'
            })
             return await $(locator).getText();
@@ -128,7 +128,7 @@ class Commands {
 
         async isWebElementDisplayed(locator) {
             await $(locator).waitForDisplayed({
-                timeout:120000,
+                timeout:60000,
                 timeoutMsg: 'Element is not displayed'
                })
             const element = await this.findWebElement(locator);
@@ -150,7 +150,7 @@ class Commands {
                 do above flow for 30-seconds
             */
            await $(locator).waitForExist({
-            timeout:120000,
+            timeout:60000,
             timeoutMsg: 'Element does not exist'
            })
             return await $(locator).getAttribute(attrName);
@@ -158,7 +158,7 @@ class Commands {
 
         async scrollElementIntoView(locator) {
             await $(locator).waitForExist({
-                timeout:120000,
+                timeout:60000,
                 timeoutMsg: 'Element does not exist'
                })
             const element = await $(locator);
@@ -179,7 +179,7 @@ class Commands {
          */
         async selectDataInDropdown(locator, dataToSelect) {
             await $(locator).waitForDisplayed({
-                timeout:120000,
+                timeout:60000,
                 timeoutMsg: 'Element is not displayed'
             })
             const dropdown = await $(locator);
@@ -208,7 +208,7 @@ class Commands {
 
         async chooseDate(locator, searchBy, thisDate) {
             await $(locator).waitForDisplayed({
-                timeout:120000,
+                timeout:60000,
                 timeoutMsg: 'Element is not displayed'
             })
             const allDates = await $$(locator);
@@ -228,7 +228,7 @@ class Commands {
          */
         async moveMouseOn(locator) {
             await $(locator).waitForExist({
-                timeout:120000,
+                timeout:60000,
                 timeoutMsg: 'Element does not exist'
             })
             await $(locator).moveTo();
@@ -266,7 +266,7 @@ class Commands {
         const element = await this.findWebElement(locator)
         for (let counter = 1; counter <= numberOfClicks; counter++) {
             await element.click()  
-            console.log(`\n\nEK->${counter} numberOfClicks: ${numberOfClicks}\n\n`);
+            console.log(`\n\nclick->${counter} numberOfClicks: ${numberOfClicks}\n\n`);
         }
     }
     
@@ -296,7 +296,7 @@ class Commands {
 
         async clearTextField(locator) {
             await $(locator).waitForDisplayed({
-                timeout:120000,
+                timeout:60000,
                 timeoutMsg: 'Element is not displayed'
             })
             const element = await this.findWebElement(locator)

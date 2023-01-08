@@ -2,20 +2,24 @@ const moment = require("moment/moment");
 
 class Dates {
 
-    static getCurrentDate() {
+    static getCurrentDate(format) {
+
         const now = moment();
-        return now.format('D');
+        
+        if (format === 'day') {
+            return now.format('D');
+        } else if (format === 'month') {
+            return now.format('MMM');
+        } else if (format === 'year') {
+            return now.format('YYYY');
+        } else if (format === 'Month') {
+            return now.format('MMMM');
+        } else {
+            throw 'Invalid format';
+        }
+        
     }
 
-    static getCurrentMonthNameInShort() {
-        const now = moment();
-        return now.format('MMM');
-    }
-
-    static getCurrentYearInYYYY() {
-        const now = moment();
-        return now.format('YYYY');
-    }
 
 
 }
