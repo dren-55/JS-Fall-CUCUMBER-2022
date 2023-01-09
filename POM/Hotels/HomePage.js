@@ -1,14 +1,29 @@
 const Commands = require('../Commands');
-
+const Dates = require("../../Utils/Dates")
+const moment = require("moment/moment")
 class HomePage {
 
     commands = new Commands();
-
+    now = moment();
     // Locators for web-Elements on the HomePage (variables)
     // Destination
     goingToLocator = '//button[@aria-label="Going to"]';
     goingToTypeLocator = '#destination_form_field';
     autoSuggestionsLocator = '//div[@class="truncate"]//strong';
+
+    // Verify invalid phone number error locators
+
+    getTheAppLocator = '//button[text()="Get the app"]'
+    phoneNumberBoxLocator = '#phoneNumber'
+    phoneNumberErrorMsgLocator = '#phoneNumber-error'
+
+    //Dates
+
+    datesCalendar = '//button[@data-stid="open-date-picker"]';
+    currentMonthFinder_1 = '//h2[starts-with(text(),';
+    currentMonthFinder_2 = ')]';
+    disabledDates = '//td//button[@disabled]';
+    disabledDates = '//button[@class="uitk-date-picker-day is-disabled"]';
 
     // Calendar
     calendarOpenLocator = '#date_form_field-btn';
@@ -20,6 +35,7 @@ class HomePage {
     nextCalendarButtonLocator = '(//button[@data-stid="date-picker-paging"])[2]';
     prevCalendarButtonLocator = '(//button[@data-stid="date-picker-paging"])[1]';
     leftSideCalendarHeaderLocator = '(//div[@class="uitk-date-picker-month"])[1]//h2';
+    prevMonths = '//button[@data-stid="date-picker-paging"]/preceding-sibling::button'
 
     // functions to interact with the web-Elements on the HomePage
     async enterDestination(destination) {
@@ -84,5 +100,72 @@ class HomePage {
         }
     }
 
+    async scrollToGetTheApp(){
+        await this.commands.scrollElementIntoView(this.getTheAppLocator)
+    }
+    async clickPhoneNumberBox(){
+        await this.commands.clickWebElement(this.phoneNumberBoxLocator)
+    }
+    async enterPhoneNumber(Phone){
+        await this.commands.typeInWebElement(this.phoneNumberBoxLocator,Phone)
+    }
+    async clickGetTheApp(){
+        await this.commands.clickWebElement(this.getTheAppLocator)
+    }
+    async getErrorText(){
+        return await this.commands.getTextOfWebElement(this.phoneNumberErrorMsgLocator)
+    }
+
+    async openDates () {
+        await this.commands.clickWebElement(this.datesCalendar);
+    }
+
+    async verifyMonth () {
+
+        const expectedMonth = Dates.getCurrentDate('Month');
+        const locatorString = this.currentMonthFinder_1+`"${expectedMonth}"`+this.currentMonthFinder_2;
+        const isMonthPresent = await this.commands.isWebElementDisplayed(locatorString);
+
+        return isMonthPresent;
+
+    }
+
+    async viewEarlierMonths () {
+
+        await this.commands.clickWebElement(this.prevMonths);
+
+    }
+
+    async selectCheckInDate(date) {
+        // date = "December 5 2022"
+        // 'December', '5', '2022'
+        const dateArray = date.split(' ');
+        await this.goToMonth(`${dateArray[0]} ${dateArray[2]}`);
+        const allDatesLocator = this.allDatesLocator_starts + date.substring(0,3) + this.allDatesLocator_ends;
+        await this.commands.selectDateInCalendar(allDatesLocator, dateArray[1]);
+    }
+
+    async selectCheckOutDate(date) {
+        const dateArray = date.split(' ');
+        await this.goToMonth(`${dateArray[0]} ${dateArray[2]}`);
+        const allDatesLocator = this.allDatesLocator_starts + date.substring(0,3) + this.allDatesLocator_ends;
+        await this.commands.selectDateInCalendar(allDatesLocator, dateArray[1]);
+    }
+
+    async clickDoneOnCalendar() {
+        await this.commands.clickWebElement(this.calendarDoneButtonLocator);
+    }
+
+
+    async arePastDatesInCalendarEnabled() {
+        const pastDays = await this.commands.findAllWebElement(this.disabledDates);
+        for(var i = 0; i < pastDays.length; i++) {
+            return await (await $(pastDays[i])).isEnabled();
+        } 
+    }
+
+    async isBackArrowInCalendarEnabled() {
+        return await $(this.prevCalendarButtonLocator).isEnabled();
+    }
 }
 module.exports = HomePage;

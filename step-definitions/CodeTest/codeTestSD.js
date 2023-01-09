@@ -22,13 +22,7 @@ Then(/^I verify language got changed to Español$/, async function() {
 })
 
 
-
-
-When(/^I click on Travelers$/, async function() {
-    await codeTestPom.clickOnTravelersMenu()
-})
-
-When(/^I click on Travelers$/, async function() {
+When(/^I click on travelers$/, async function() {
     await codeTestPom.clickOnTravelersMenu()
 })
 
