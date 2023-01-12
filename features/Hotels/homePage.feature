@@ -1,8 +1,8 @@
-@TC-40
+
 Feature: Get the app
 Background: 
         Given I am on hotels
-
+@TC-40
 Scenario: Verify invalid phone number error
 When I scroll to “Get the app“ button
 When I enter “0000000000” in Phone number
