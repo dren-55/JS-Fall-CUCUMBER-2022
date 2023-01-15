@@ -10,11 +10,10 @@ When(/^I change language to (.+)$/, async function (newLanguageOption) {
     await lan.changeLanguage(newLanguageOption)
    
 })
-Then(/^I verify language got changed to (.+)$/, async (language) => {
-
-    const expectedLanguage = language.toLowerCase();
+Then(/^I verify language Got Changed to (.+)$/, async (language) => {
 
     const languageOnWeb = await lan.getLanguageFromWeb()
-
-    expect(languageOnWeb.toLowerCase(), `Language is not updated as expected -> ${language}`).to.equal(expectedLanguage)
+    console.log(`------------------------------------>${languageOnWeb}`);
+    console.log(`------------------------------------>${language}`);
+    expect(languageOnWeb, 'Language is not updated as expected').to.equal(language);
 })

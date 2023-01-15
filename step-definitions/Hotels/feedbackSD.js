@@ -23,7 +23,7 @@ When(/^I click on Submit button$/, async function () {
     await feedback.clickSubmitButton()
     await browser.pause(3000)
 })
-When(/^I verify error message is displayed$/, async function(){
+When(/^I verify error message is Displayed$/, async function(){
     const textOfError = await feedback.getErrorText()
     expect(textOfError, 'error msg is not displayed').to.be.equal('Please fill in the required information highlighted below.')
 })

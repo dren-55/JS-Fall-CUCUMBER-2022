@@ -19,6 +19,15 @@ class Dates {
         }
         
     }
+    format_MM_DD_YY(time) {
+        time = moment(time);
+        return time.format('MM/DD/YY');
+      }
+      
+      format_DD_MMMM_YYYY(time) {
+        time = moment(time);
+        return time.format('DD MMMM, YYYY');
+      }
 
 
 

@@ -1,8 +1,7 @@
-@TC-40
-Feature: Get the app
+Feature: home page flow
 Background: 
         Given I am on hotels
-
+@TC-30
 Scenario: Verify invalid phone number error
 When I scroll to “Get the app“ button
 When I enter “0000000000” in Phone number
@@ -12,7 +11,7 @@ Then I verify “Please enter a valid phone number.“ error is displayed
 @TC-31
 Scenario Outline: Verify user is able to change language
         When I change language to <languageOption>
-        Then I verify language got changed to <language>
+        Then I verify language Got Changed to <language>
         Examples:
             | languageOption           | language |
             | Español (Estados Unidos) | Español  |
