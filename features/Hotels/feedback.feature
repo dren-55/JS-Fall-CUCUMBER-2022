@@ -8,7 +8,7 @@
     @signin @TC-24
     Scenario: Verify Verification message for invalid sign in credentials
         When I click on Submit button
-        When I verify error message is displayed
+        When I verify error message is Displayed
         Then I Verify star boxes section is in a red dotted box.
 
     @feedback @TC-25

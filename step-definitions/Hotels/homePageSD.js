@@ -20,14 +20,14 @@ Then(/^I verify “Please enter a valid phone number.“ error is displayed$/, a
 
 
 When(/^I click on dates$/, async () => {
-
+    await browser.maximizeWindow()
     await homePage.openDates();
 
 })
 
 When(/^I go to current month if not displayed$/, async () => {
 
-    const isCurrentMonthDisplayed = await homePage.verifyMonth();
+    const isCurrentMonthDisplayed = await homePage.getDisplayedMonth();
     if (!isCurrentMonthDisplayed) {
         await homePage.viewEarlierMonths()
     }

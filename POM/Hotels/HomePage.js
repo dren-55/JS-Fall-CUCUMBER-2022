@@ -24,6 +24,7 @@ class HomePage {
     currentMonthFinder_2 = ')]';
     disabledDates = '//td//button[@disabled]';
     disabledDates = '//button[@class="uitk-date-picker-day is-disabled"]';
+    allDisabledDatesLocator = '//button[contains(@class, "is-disabled")]'
 
     // Calendar
     calendarOpenLocator = '#date_form_field-btn';
@@ -52,8 +53,6 @@ class HomePage {
     }
 
     async selectCheckInDate(date) {
-        // date = "December 5 2022"
-        // 'December', '5', '2022'
         const dateArray = date.split(' ');
         await this.goToMonth(`${dateArray[0]} ${dateArray[2]}`);
         const allDatesLocator = this.allDatesLocator_starts + date.substring(0,3) + this.allDatesLocator_ends;
@@ -158,11 +157,18 @@ class HomePage {
 
 
     async arePastDatesInCalendarEnabled() {
-        const pastDays = await this.commands.findAllWebElement(this.disabledDates);
+        const pastDays = await this.commands.findAllWebElement(this.allDisabledDatesLocator);
         for(var i = 0; i < pastDays.length; i++) {
-            return await (await $(pastDays[i])).isEnabled();
+            return await this.commands.isWebElementEnabled(await $(pastDays[i]))
         } 
     }
+
+      async getDisplayedMonth() {
+        var displayedMonth = await this.commands.getTextOfWebElement(
+          this.leftSideCalendarHeaderLocator
+        );
+        return displayedMonth;
+      }
 
     async isBackArrowInCalendarEnabled() {
         return await $(this.prevCalendarButtonLocator).isEnabled();

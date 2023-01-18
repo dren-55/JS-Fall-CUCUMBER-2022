@@ -24,10 +24,10 @@ class Commands {
          * input: string(locator)
          */
         async findWebElement(locator) {
-            await $(locator).waitForDisplayed({
-                timeout: 30000,
-                timeoutMsg: 'WebElement is not displayed'
-            })
+            // await $(locator).waitForDisplayed({
+            //     timeout: 30000,
+            //     timeoutMsg: 'WebElement is not displayed'
+            // })
             return await $(locator);
         }
     
@@ -86,26 +86,25 @@ class Commands {
             await $(locator).click();
         }
     
-        /**
-         * Generic function to find if field is enabled
-         * name: isWebElementEnabled
-         * input: string(locator)
-         */
-        async isWebElementEnabled(locator) {
-            /*
-                1. find the webElement
-                2. if found, check if element is enabled
-                3. otherwise, wait for 1-second then start from step-1
-    
-                do above flow for 30-seconds
-            */
-           await $(locator).waitForEnabled({
-            timeout:60000,
-            timeoutMsg: 'Element is not enabled'
-           });
-            return await $(locator).isEnabled();
-        }
-    
+    /**
+     * Generic function to find if field is enabled
+     * name: isWebElementEnabled
+     * input: string(locator)
+     */
+    async isWebElementEnabled(locator) {
+        /*
+            1. find the webElement
+            2. if found, check if element is displayed
+            3. otherwise, wait for 1-second then start from step-1
+
+            do above flow for 30-seconds
+        */
+        // await $(locator).waitForDisplayed({
+        //     timeout:120000,
+        //     timeoutMsg: 'Element is not displayed'
+        // });
+        return await $(locator).isEnabled();
+    }
         /**
          * Generic function to get Text of a WebElement
          * name: getTextOfWebElement
@@ -127,10 +126,10 @@ class Commands {
         }
 
         async isWebElementDisplayed(locator) {
-            await $(locator).waitForDisplayed({
-                timeout:60000,
-                timeoutMsg: 'Element is not displayed'
-               })
+            // await $(locator).waitForDisplayed({
+            //     timeout:60000,
+            //     timeoutMsg: 'Element is not displayed'
+            //    })
             const element = await this.findWebElement(locator);
             return await element.isDisplayed();
         }
@@ -328,6 +327,38 @@ class Commands {
                 }
             }
         }
+        async autoSugSelectorWithText(autoSuggestionLocator, valueToSelect) {
+            const autoSuggestionElements = await this.findAllWebElement(autoSuggestionLocator);
+            for (const autoSuggestionElement of autoSuggestionElements) {
+                const suggestionText = await autoSuggestionElement.getText();
+                const suggestionsTextArray = suggestionText.split("\n")
+                const suggestionsTextLine = suggestionsTextArray.join(" ")
+                console.log(`\n\n ------------>${suggestionsTextLine}\n\n`);
+                if (suggestionsTextLine.toLowerCase().startsWith(valueToSelect.toLowerCase()) === true) {
+                    await this.clickWebElement(autoSuggestionElement);
+                    break;
+                }
+            }
+        }
+            // takes in dates in format Oct 3, 2022 hotels.com website
+    async selectDateFromCalendar(monthLocator, goToNextMonthLocator, allDatesLocator, dateToSelect) {
+        for (let i=1 ; i <= 12 ; i++) {
+            const monthSeen = await this.getTextOfWebElement(monthLocator)
+            if (await monthSeen.includes(dateToSelect.substring(0, 2)) === true){
+                break;
+            }
+            await this.clickWebElement(goToNextMonthLocator);
+        }
+        const allDateElements = await this.findAllWebElement(allDatesLocator);
+        for (const dateElement of allDateElements) {
+            const date = await dateElement.getAttribute('aria-label');
+            if (date.localeCompare(dateToSelect) === 0) {
+                await dateElement.click();
+                break;
+            }
+        }
+    }
+
     
     }
     module.exports = Commands;

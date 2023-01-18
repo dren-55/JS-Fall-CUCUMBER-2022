@@ -2,7 +2,7 @@ const Commands = require("../Commands")
 
 class Language {
 commands = new Commands
-
+    displaySettingsLink = '//nav[@id="secondaryNav"]//div//button//div//div';
     languageLocator = '//button[@data-stid="button-type-picker-trigger"]//div/div'
     languageDropDownLocator = '#language-selector'
     saveButtonLocator = '//button[text()="Save" or text()="Guardar"]'
@@ -24,7 +24,7 @@ async changeLanguage(newLanguage){
 }
 
 async getLanguageFromWeb() {
-    return await this.commands.getTextOfWebElement(this.languageLocator)
+    return await this.commands.getTextOfWebElement(this.displaySettingsLink)
 }
 }
 module.exports = Language
